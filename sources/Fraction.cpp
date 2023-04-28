@@ -9,7 +9,7 @@ namespace ariel{
     
     Fraction::Fraction(int num , int den ) : numerator(num), denominator(den) {
         if(denominator == 0){
-            throw invalid_argument("denominato cant bbe zero");
+            throw invalid_argument("denominator cant be zero");
         }
         this->reduce();
     }
@@ -149,8 +149,8 @@ namespace ariel{
             frac.numerator =numerator;
             frac.denominator = denominator;
             frac.reduce();
-         }else{
-            throw invalid_argument("illigal input");
+         }else{ //denominator =0
+            throw runtime_error("denominator can't be zero");
          } 
 
          return input;
