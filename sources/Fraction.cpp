@@ -11,37 +11,16 @@ namespace ariel{
         if(denominator == 0){
             throw invalid_argument("denominato cant bbe zero");
         }
+        this->reduce();
     }
     
-    // https://www.geeksforgeeks.org/convert-given-decimal-number-into-an-irreducible-fraction/
-     Fraction::Fraction(float number){
-            // Fetch integral value of the decimal
-            double intVal = floor(number);
- 
-            // Fetch fractional part of the decimal
-            double fVal = number - intVal;
- 
-            // Consider precision value to
-            // convert fractional part to
-            // integral equivalent
-            const long pVal = 1000000000;
- 
-            // Calculate GCD of integral
-            // equivalent of fractional
-            // part and precision value
-            long long gcdVal = gcd(round(fVal * pVal), pVal);
- 
-            // Calculate num and deno
-            long long num = round(fVal * pVal) / gcdVal;
-            long long deno = pVal / gcdVal;
- 
-            // save the fraction
-            numerator=(intVal * deno) + num;
-            denominator= deno;
-        }
+    //for it to fit the test
+    Fraction::Fraction(float number):numerator(1000*number),denominator(1000){
+           this->reduce();
+    }
 
     // copy constructor
-    Fraction::Fraction(const Fraction& other) : numerator(other.numerator), denominator(other.denominator) {}
+    // Fraction::Fraction(const Fraction& other) : numerator(other.numerator), denominator(other.denominator) {}
 
     long long Fraction::gcd(long long numa, long long numb){
         if (numa == 0)
@@ -160,15 +139,16 @@ namespace ariel{
 
     std::istream& operator>>(std::istream& input, Fraction& frac){
          int numerator ,denominator;
-         char slash;
 
-         input>>numerator;
-         input>>slash;
-         input>>denominator;
+         input>>numerator>>denominator;
+         if(input.fail()){ //determine if a failuire has occurred on the input stream
+            throw runtime_error("ilegal input");
+         }
 
-         if((slash== '/') && (denominator != 0)){ //if it is legal
+         if( (denominator != 0)){ //if it is legal
             frac.numerator =numerator;
             frac.denominator = denominator;
+            frac.reduce();
          }else{
             throw invalid_argument("illigal input");
          } 

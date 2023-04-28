@@ -21,8 +21,8 @@ class Fraction {
         Fraction(int num , int den );
         Fraction(float number);
         //copy consructtor
-        Fraction(const Fraction& other);
-        ~Fraction()= default;
+        // Fraction(const Fraction& other);
+        // ~Fraction()= default;
         //geters
         int getNumerator() const;
         int getDenominator() const;
