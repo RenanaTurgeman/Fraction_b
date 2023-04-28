@@ -14,12 +14,18 @@ class Fraction {
         void reduce();
         // Recursive function to
     // return GCD of a and b
-    long long gcd(long long a, long long b);
+    long long gcd(long long numa, long long numb);
     public:
         // Constructors
-        Fraction(int num , int den ) : numerator(num), denominator(den) {}
+        Fraction();
+        Fraction(int num , int den );
         Fraction(float number);
+        //copy consructtor
+        Fraction(const Fraction& other);
         ~Fraction()= default;
+        //geters
+        int getNumerator() const;
+        int getDenominator() const;
         // Overloaded operators
         friend Fraction operator+(const Fraction& num1, const Fraction& num2);
         friend Fraction operator-(const Fraction& num1, const Fraction& num2);
@@ -36,8 +42,8 @@ class Fraction {
         const Fraction operator++(int); // postfix increment
         Fraction& operator--(); // prefix decrement
         const Fraction operator--(int); // postfix decrement
-        friend std::ostream& operator<<(std::ostream& os, const Fraction& f);
-        friend std::istream& operator>>(std::istream& is, Fraction& f);
+        friend std::ostream& operator<<(std::ostream& output, const Fraction& frac);
+        friend std::istream& operator>>(std::istream& input, Fraction& frac);
 };
 
 };

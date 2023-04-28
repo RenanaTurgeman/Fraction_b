@@ -2,6 +2,17 @@
  using namespace std;
 
 namespace ariel{
+    Fraction::Fraction(){
+        this->numerator=1;
+        this->denominator =1;
+    }
+    
+    Fraction::Fraction(int num , int den ) : numerator(num), denominator(den) {
+        if(denominator == 0){
+            throw invalid_argument("denominato cant bbe zero");
+        }
+    }
+    
     // https://www.geeksforgeeks.org/convert-given-decimal-number-into-an-irreducible-fraction/
      Fraction::Fraction(float number){
             // Fetch integral value of the decimal
@@ -28,16 +39,19 @@ namespace ariel{
             numerator=(intVal * deno) + num;
             denominator= deno;
         }
-        
-    long long Fraction::gcd(long long a, long long b){
-        if (a == 0)
-            return b;
-        else if (b == 0)
-            return a;
-        if (a < b)
-            return gcd(a, b % a);
+
+    // copy constructor
+    Fraction::Fraction(const Fraction& other) : numerator(other.numerator), denominator(other.denominator) {}
+
+    long long Fraction::gcd(long long numa, long long numb){
+        if (numa == 0)
+            return numb;
+        else if (numb == 0)
+            return numa;
+        if (numa < numb)
+            return gcd(numa, numb % numa);
         else
-            return gcd(b, a % b);
+            return gcd(numb, numa % numb);
     }
 
     void Fraction::reduce() {
@@ -48,6 +62,13 @@ namespace ariel{
             this->numerator *= -1;
             this->denominator *= -1;
         }
+    }
+    //getters
+    int Fraction::getNumerator() const{
+        return this->numerator;
+    }
+    int Fraction::getDenominator() const{
+        return this->denominator;
     }
 
     // Overloaded operators:
@@ -132,27 +153,27 @@ namespace ariel{
         return result;    
     }
 
-    std::ostream& operator<<(std::ostream& os, const Fraction& f){
-        os << f.numerator <<'/' << f.denominator;
-        return os;    
+    std::ostream& operator<<(std::ostream& output, const Fraction& frac){
+        output << frac.numerator <<'/' << frac.denominator;
+        return output;    
     }
 
-    std::istream& operator>>(std::istream& is, Fraction& f){
+    std::istream& operator>>(std::istream& input, Fraction& frac){
          int numerator ,denominator;
          char slash;
 
-         is>>numerator;
-         is>>slash;
-         is>>denominator;
+         input>>numerator;
+         input>>slash;
+         input>>denominator;
 
          if((slash== '/') && (denominator != 0)){ //if it is legal
-            f.numerator =numerator;
-            f.denominator = denominator;
+            frac.numerator =numerator;
+            frac.denominator = denominator;
          }else{
             throw invalid_argument("illigal input");
          } 
 
-         return is;
+         return input;
     }
 
  
