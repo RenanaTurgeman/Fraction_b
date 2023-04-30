@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <limits>
 
 // using namespace std;
 
@@ -12,20 +13,22 @@ class Fraction {
         int numerator; //above
         int denominator;
         void reduce();
-        // Recursive function to
-    // return GCD of a and b
-    long long gcd(long long numa, long long numb);
+        // Recursive function to return GCD of a and b
+        long long gcd(long long numa, long long numb);
     public:
         // Constructors
         Fraction();
         Fraction(int num , int den );
         Fraction(float number);
-        //copy consructtor
+
+        //copy consructor
         // Fraction(const Fraction& other);
         // ~Fraction()= default;
+
         //geters
         int getNumerator() const;
         int getDenominator() const;
+
         // Overloaded operators
         friend Fraction operator+(const Fraction& num1, const Fraction& num2);
         friend Fraction operator-(const Fraction& num1, const Fraction& num2);
@@ -44,9 +47,6 @@ class Fraction {
         const Fraction operator--(int); // postfix decrement
         friend std::ostream& operator<<(std::ostream& output, const Fraction& frac);
         friend std::istream& operator>>(std::istream& input, Fraction& frac);
-
-        // friend float toFloat(const Fraction& num);
-
 };
 
 };

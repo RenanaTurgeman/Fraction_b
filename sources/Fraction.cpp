@@ -3,10 +3,7 @@
  using namespace std;
 
 namespace ariel{
-    Fraction::Fraction(){
-        this->numerator=1;
-        this->denominator =1;
-    }
+    Fraction::Fraction(): numerator(1), denominator(1){}
     
     Fraction::Fraction(int num , int den) : numerator(num), denominator(den) {
         if(denominator == 0){
@@ -23,19 +20,8 @@ namespace ariel{
     // copy constructor
     // Fraction::Fraction(const Fraction& other) : numerator(other.numerator), denominator(other.denominator) {}
 
-    long long Fraction::gcd(long long numa, long long numb){
-        if (numa == 0)
-            return numb;
-        else if (numb == 0)
-            return numa;
-        if (numa < numb)
-            return gcd(numa, numb % numa);
-        else
-            return gcd(numb, numa % numb);
-    }
-
     void Fraction::reduce() {
-        long long gcd = this->gcd(abs(this->numerator), abs(this->denominator));
+        int gcd = __gcd(abs(this->numerator), abs(this->denominator));
         this->numerator /= gcd;
         this->denominator /= gcd;
         if (this->denominator < 0) {
