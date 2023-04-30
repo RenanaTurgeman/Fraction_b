@@ -44,6 +44,9 @@ class Fraction {
         const Fraction operator--(int); // postfix decrement
         friend std::ostream& operator<<(std::ostream& output, const Fraction& frac);
         friend std::istream& operator>>(std::istream& input, Fraction& frac);
+
+        // friend float toFloat(const Fraction& num);
+
 };
 
 };

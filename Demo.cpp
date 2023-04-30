@@ -40,4 +40,8 @@ int main() {
     else cout << " a is smaller than 1.1" << endl;
     cout << 5.321 - Fraction{2, 3} << endl;
 
+    // Fraction t(9,7) , g(2,7);
+    //     cout <<"t= "<< t << endl;
+    //     cout <<"g= "<< g << endl;
+
 }

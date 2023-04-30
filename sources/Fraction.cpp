@@ -84,11 +84,26 @@ namespace ariel{
     }
 
     bool operator==(const Fraction& num1, const Fraction& num2){
-        return (num1.numerator == num2.numerator) && (num1.denominator ==num2.denominator);
+        // return (num1.numerator == num2.numerator) && (num1.denominator ==num2.denominator);
+
+        // first multiplies the numerator of each fraction by 1000 and divides by the denominator, 
+        // keeping only the three digits after the decimal point.
+        int digits1 = (int)(num1.getNumerator() * 1000 / num1.getDenominator()) % 1000;
+        int digits2 = (int)(num2.getNumerator() * 1000 / num2.getDenominator()) % 1000;
+        return digits1 == digits2;
     }
-    bool operator!=(const Fraction& num1, const Fraction& num2){
-        return !(num1 == num2);
+
+    // bool operator!=(const Fraction& num1, const Fraction& num2){
+    //     return !(num1 == num2);
+    // }
+
+    bool operator!=(const Fraction& num1, const Fraction& num2) {
+        
+        int digits1 = num1.getNumerator() * num2.getDenominator();
+        int digits2 = num2.getNumerator() * num1.getDenominator();
+        return digits1 != digits2;
     }
+
 
     bool operator>(const Fraction& num1, const Fraction& num2){
         return num1.numerator * num2.denominator > num2.numerator * num1.denominator;
@@ -156,5 +171,11 @@ namespace ariel{
          return input;
     }
 
- 
+//     float ariel::toFloat(const Fraction &a)
+// {
+//     float numerator_a = (float)a.getNumerator();
+//     float denominator_a = (float)a.getDenominator();
+//     float fraction_float = numerator_a / denominator_a;
+//     return round(fraction_float * 1000) / 1000;
+// }
 }
