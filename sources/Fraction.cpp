@@ -163,11 +163,11 @@ namespace ariel{
 
 
     bool operator>(const Fraction& num1, const Fraction& num2){
-        return num1.numerator * num2.denominator > num2.numerator * num1.denominator;
+        return num1.getNumerator() * num2.getDenominator() > num2.getNumerator() * num1.getDenominator();
     }
 
     bool operator<(const Fraction& num1, const Fraction& num2){
-        return num1.numerator * num2.denominator < num2.numerator * num1.denominator;
+        return num1.getNumerator() * num2.getDenominator() < num2.getNumerator() * num1.getDenominator();
     }
 
     bool operator>=(const Fraction& num1, const Fraction& num2){
