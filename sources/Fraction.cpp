@@ -8,7 +8,7 @@ namespace ariel{
         this->denominator =1;
     }
     
-    Fraction::Fraction(int num , int den ) : numerator(num), denominator(den) {
+    Fraction::Fraction(int num , int den) : numerator(num), denominator(den) {
         if(denominator == 0){
             throw invalid_argument("denominator cant be zero");
         }
@@ -43,6 +43,7 @@ namespace ariel{
             this->denominator *= -1;
         }
     }
+
     //getters
     int Fraction::getNumerator() const{
         return this->numerator;
@@ -52,36 +53,49 @@ namespace ariel{
     }
 
     // Overloaded operators:
-    Fraction operator+(const Fraction& num1, const Fraction& num2) {
-        int num = num1.numerator * num2.denominator + num1.denominator * num2.numerator;
-        int den = num1.denominator * num2.denominator;
-        Fraction result(num, den);
-        result.reduce();
+    Fraction operator+(const Fraction& num1, const Fraction& num2){
+        long long num = (long long)num1.getNumerator() * num2.getDenominator() + (long long)num2.getNumerator() * num1.getDenominator();
+        long long den = (long long)num1.getDenominator() * num2.getDenominator();
+
+        if (num > (long long)numeric_limits<int>::max() || num < (long long)numeric_limits<int>::min())
+        {
+            throw overflow_error("overflow occurred during addition");
+        }
+        if (den > (long long)numeric_limits<int>::max() || den < (long long)numeric_limits<int>::min())
+        {
+            throw overflow_error("overflow occurred during addition");
+        }
+
+        Fraction result((int)num, (int)den);
         return result;
     }
 
     Fraction operator-(const Fraction& num1, const Fraction& num2){
-        int num = num1.numerator * num2.denominator - num1.denominator * num2.numerator;
-        int den = num1.denominator * num2.denominator;
-        Fraction result(num, den);
+        long long num = (long long)num1.getNumerator() * num2.getDenominator() - (long long)num2.getNumerator() * num1.getDenominator();
+        long long den = (long long)num1.getDenominator() * num2.getDenominator();
+        
+        if (num > (long long)numeric_limits<int>::max() || num < (long long)numeric_limits<int>::min())
+        {
+            throw overflow_error("overflow occurred during addition");
+        }
+        if (den > (long long)numeric_limits<int>::max() || den < (long long)numeric_limits<int>::min())
+        {
+            throw overflow_error("overflow occurred during addition");
+        }
+
+        Fraction result((int)num, (int)den);
         result.reduce();
         return result;
     }
-
-    // Fraction operator*(const Fraction& num1, const Fraction& num2){
-    //     int num = num1.numerator * num2.numerator;
-    //     int den = num1.denominator * num2.denominator;
-    //     Fraction result(num, den);
-    //     result.reduce();
-    //     return result;    
-    // }
 
 Fraction operator*(const Fraction& num1, const Fraction& num2) {
     if (num1.getNumerator() == 0 || num2.getNumerator() == 0) {
         return Fraction(0);
     }
 
-    if (num1.getNumerator() == numeric_limits<int>::min() || num2.getNumerator() == numeric_limits<int>::min()) {
+    int min_val = numeric_limits<int>::min();
+
+    if (num1.getNumerator() == min_val || num2.getNumerator() == min_val) {
             throw overflow_error("overflow occurred during multiplication");
     }
 
@@ -98,46 +112,31 @@ Fraction operator*(const Fraction& num1, const Fraction& num2) {
     result.reduce();
     return result;
 }
-
-    // Fraction operator/(const Fraction& num1, const Fraction& num2) {
-    //     if(num2.getNumerator()==0){
-    //         throw runtime_error("ilegal divison by 0");
-    //     }
-    //     int num = num1.numerator * num2.denominator ;
-    //     int den = num1.denominator * num2.numerator;
-    //     Fraction result(num, den);
-    //     result.reduce();
-    //     return result;  
-    // }
-
-    Fraction operator/(const Fraction& num1, const Fraction& num2) {
-        if(num2.getNumerator() == 0) {
-            throw runtime_error("illegal division by zero");
-        }
-
-        // Check for potential overflow when calculating the denominator and throw an error if it occurs.
-        if(num2.getNumerator() == std::numeric_limits<int>::min()) {
-            throw overflow_error("overflow occurred during division");
-        }
-        // Calculate the numerator and denominator of the resulting fraction.
-        int num = num1.numerator * num2.denominator;
-        int den = num1.denominator * num2.numerator;
-        // Check for potential overflow when calculating the numerator and throw an error if it occurs.
-        if(num2.denominator > 0) {
-            if(num1.numerator > std::numeric_limits<int>::max() / num2.denominator) {
-                throw overflow_error("overflow occurred during division");
-            }
-        } else {
-            if(num1.numerator < std::numeric_limits<int>::min() / (-num2.denominator)) {
-                throw overflow_error("overflow occurred during division");
-            }
-        }
-
-        Fraction result(num, den);
-        result.reduce();
-        return result;  
+    
+    Fraction operator/(const Fraction &num1, const Fraction &num2){
+    
+    if (num2.getNumerator() == 0)
+    {
+        throw runtime_error("ilegal divison by 0");
     }
 
+    long long num = (long long) num1.getNumerator() * (long long) num2.getDenominator(); 
+    long long den = (long long) num1.getDenominator() * (long long) num2.getNumerator();
+    
+    int min_val = numeric_limits<int>::min();
+    int max_val = numeric_limits<int>::max();
+
+    if (num > max_val || num < min_val) {
+        throw overflow_error("Overflow occurred during division");
+    }
+    if (den > max_val || den < min_val) {
+        throw overflow_error("Overflow occurred during division");
+    }
+
+    Fraction result((int) num, (int) den);
+    return result;
+
+    }   
 
 
     bool operator==(const Fraction& num1, const Fraction& num2){
@@ -178,14 +177,8 @@ Fraction operator*(const Fraction& num1, const Fraction& num2) {
         return num1<num2 || num1==num2;
     }
 
-    // Fraction& Fraction::operator++(){ // prefix increment
-    //     this->numerator = this->numerator + this->denominator;
-    //     this->reduce();
-    //     return *this;
-    // }
-
 Fraction& Fraction::operator++(){ // prefix increment
-    if (numerator > std::numeric_limits<int>::max() - denominator) {
+    if (numerator > numeric_limits<int>::max()) {
             throw overflow_error("Error: overflow occurred!") ;
     } else {
         numerator += denominator;
@@ -195,36 +188,15 @@ Fraction& Fraction::operator++(){ // prefix increment
     return *this;
 }
 
-    // const Fraction Fraction::operator++(int){ // postfix increment
-    //     Fraction result = *this; //save it for return the object before the changes
-    //     ++(*this );
-    //     this->reduce();
-    //     return result;
-    // }
-
     const Fraction Fraction::operator++(int){ // postfix increment
         Fraction result = *this; //save it for return the object before the changes
-
-        if (numerator > std::numeric_limits<int>::max() - denominator) {
-            throw overflow_error("Error: overflow occurred!") ;
-        } else {
-            // numerator += denominator;
-            ++(*this );
-            this->reduce();
-        }
-
+        ++(*this );
+        this->reduce();
         return result;
     }
 
-
-    // Fraction& Fraction::operator--(){ // prefix decrement
-    //     this->numerator = this->numerator - this->denominator;
-    //     this->reduce();
-    //     return *this;
-    // }
-
     Fraction& Fraction::operator--(){ // prefix decrement
-        if (numerator < std::numeric_limits<int>::min() + denominator) {
+        if (numerator < numeric_limits<int>::min()) {
             throw overflow_error("Error: overflow occurred!") ;
         } else {
             numerator -= denominator;
@@ -235,27 +207,12 @@ Fraction& Fraction::operator++(){ // prefix increment
     }
 
 
-    // const Fraction Fraction::operator--(int){ // postfix decrement
-    //     Fraction result = *this; //save it for return the object before the changes
-    //     --(*this);
-    //     this->reduce();
-    //     return result;    
-    // }
-
     const Fraction Fraction::operator--(int){ // postfix decrement
         Fraction result = *this; //save it for return the object before the changes
-
-        if (numerator < std::numeric_limits<int>::min() + denominator) {
-            throw overflow_error("Error: overflow occurred!") ;
-        } else {
-            // numerator -= denominator;
-            --(*this);
-            this->reduce();
-        }
-
+        --(*this);
+        this->reduce();
         return result;    
     }
-
 
     std::ostream& operator<<(std::ostream& output, const Fraction& frac){
         output << frac.numerator <<'/' << frac.denominator;
