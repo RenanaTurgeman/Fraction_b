@@ -39,9 +39,43 @@ int main() {
     if (a > 1.1) cout << " a is bigger than 1.1" << endl;
     else cout << " a is smaller than 1.1" << endl;
     cout << 5.321 - Fraction{2, 3} << endl;
+/*
+--------------------MY OWN DEMO--------------------------------------
+*/
+     // Create two fractions
+        Fraction f1(1, 2);
+        Fraction f2(3, 4);
 
-    // Fraction t(9,7) , g(2,7);
-    //     cout <<"t= "<< t << endl;
-    //     cout <<"g= "<< g << endl;
+        // Print the fractions
+        cout << "f1 = " << f1 << endl;
+        cout << "f2 = " << f2 << endl;
+
+        // Test the arithmetic operators
+        Fraction f3 = f1 + f2;
+        Fraction f4 = f1 - f2;
+        Fraction f5 = f1 * f2;
+        Fraction f6 = f1 / f2;
+
+        // Print the results of the arithmetic operations
+        cout << "f1 + f2 = " << f3 << endl;
+        cout << "f1 - f2 = " << f4 << endl;
+        cout << "f1 * f2 = " << f5 << endl;
+        cout << "f1 / f2 = " << f6 << endl;
+
+        // Test the comparison operators
+        bool b1 = f1 == f2;
+        bool b2 = f1 != f2;
+        bool b3 = f1 < f2;
+        bool b4 = f1 > f2;
+        bool b5 = f1 <= f2;
+        bool b6 = f1 >= f2;
+
+        // Print the results of the comparison operations
+        cout << "f1 == f2: " << boolalpha << b1 << endl;
+        cout << "f1 != f2: " << boolalpha << b2 << endl;
+        cout << "f1 < f2: " << boolalpha << b3 << endl;
+        cout << "f1 > f2: " << boolalpha << b4 << endl;
+        cout << "f1 <= f2: " << boolalpha << b5 << endl;
+        cout << "f1 >= f2: " << boolalpha << b6 << endl;
 
 }
