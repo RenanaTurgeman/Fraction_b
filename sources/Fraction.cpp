@@ -3,7 +3,7 @@
  using namespace std;
 
 namespace ariel{
-    Fraction::Fraction(): numerator(1), denominator(1){}
+    Fraction::Fraction(): numerator(0), denominator(1){}
     
     Fraction::Fraction(int num , int den) : numerator(num), denominator(den) {
         if(denominator == 0){
