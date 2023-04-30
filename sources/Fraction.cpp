@@ -1,6 +1,6 @@
 #include "Fraction.hpp"
 #include <limits> //for handle overflow cheks
- using namespace std;
+using namespace std;
 
 namespace ariel{
     /*Constructors:*/ 
@@ -19,9 +19,6 @@ namespace ariel{
         // Then reduce the fraction
         this->reduce();
     }
-
-    // copy constructor
-    // Fraction::Fraction(const Fraction& other) : numerator(other.numerator), denominator(other.denominator) {}
 
     /*Reduce the fraction to its simplest form*/
     void Fraction::reduce() {
@@ -45,7 +42,7 @@ namespace ariel{
         return this->denominator;
     }
 
-    // Overloaded operators:
+    /*Overloaded operators:*/ 
     Fraction operator+(const Fraction& num1, const Fraction& num2){
         // Calculate the numerator and denominator of the sum.
         long long num = (long long)num1.getNumerator() * num2.getDenominator() + (long long)num2.getNumerator() * num1.getDenominator();

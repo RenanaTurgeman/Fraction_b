@@ -5,8 +5,6 @@
 #include <cmath>
 #include <limits>
 
-// using namespace std;
-
 namespace ariel{
 class Fraction {
     private:
@@ -19,10 +17,6 @@ class Fraction {
         Fraction(); // Default constructor, creates a fraction with numerator 0 and denominator 1
         Fraction(int num , int den ); // Creates a fraction with given numerator and denominator
         Fraction(float number); // Creates a fraction from a float number
-
-        //copy consructor
-        // Fraction(const Fraction& other);
-        // ~Fraction()= default;
 
         //geters
         int getNumerator() const; // Returns the numerator of the fraction
